@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sha's Hub</title>
+
+<style>
+
+/* ===== DEBUT CSS ===== */
+
+:root{
+  --terracotta-1:#7b3f31;
+  --terracotta-2:#9a5a49;
+  --terracotta-3:#4d2720;
+  --terracotta-4:#b86c56;
+  --green:#85a271;
+  --white:#f7f0ea;
+}
+
+/* reset */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html, body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-family:Arial, Helvetica, sans-serif;
+  color:var(--white);
+}
+
+/* ===== FOND ===== */
+
+body{
+  position:relative;
+  background:
+    radial-gradient(circle at 15% 25%, rgba(184,108,86,.18), transparent 18%),
+    radial-gradient(circle at 82% 22%, rgba(130,145,106,.14), transparent 18%),
+    radial-gradient(circle at 68% 78%, rgba(184,108,86,.12), transparent 20%),
+    linear-gradient(135deg, var(--terracotta-3) 0%, #261712 22%, var(--terracotta-1) 45%, var(--terracotta-2) 72%, #2b1712 100%);
+}
+
+body::before{
+  content:"";
+  position:absolute;
+  inset:-12%;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 12% 28%, rgba(255,255,255,.08), transparent 12%),
+    radial-gradient(circle at 27% 62%, rgba(255,255,255,.06), transparent 14%),
+    radial-gradient(circle at 48% 18%, rgba(255,255,255,.06), transparent 13%),
+    radial-gradient(circle at 72% 36%, rgba(255,255,255,.05), transparent 15%),
+    radial-gradient(circle at 88% 76%, rgba(255,255,255,.06), transparent 14%);
+  filter:blur(52px);
+  opacity:.9;
+}
+
+/* ===== PAGE ===== */
+
+.page{
+  width:100%;
+  height:100%;
+  position:relative;
+}
+
+/* ===== TITRE ===== */
+
+.title{
+  display:flex;
+  justify-content:center;
+  margin-top:20px;
+}
+
+.title img{
+  width:420px;
+  filter:
+    drop-shadow(0 0 10px rgba(133,162,113,.5))
+    drop-shadow(0 0 25px rgba(133,162,113,.3));
+}
+
+/* ===== STRUCTURE ===== */
+
+.rows{
+  height:calc(100% - 180px);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-evenly;
+  align-items:center;
+  position:relative;
+}
+
+.row{
+  position:relative;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:180px;
+}
+
+/* ===== ROBOTS ===== */
+
+.robot{
+  position:absolute;
+  left:8%;
+  top:50%;
+  transform:translateY(-50%);
+}
+
+.robot img{
+  width:160px;
+  display:block;
+}
+
+/* ===== BLOC CENTRAL ===== */
+
+.content{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
+
+/* ===== LOGOS ===== */
+
+.logos{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:35px; /* avant 60 → plus serré */
+}
+
+/* tailles logos : base propre, on ajustera après si besoin */
+.card{
+  width:240px;
+  height:170px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:transform .18s ease;
+}
+
+.logos .card{
+  min-width:240px;
+}
+
+.card img{
+  width:178px;
+  height:128px;
+  object-fit:contain;
+  display:block;
+  transition:transform .18s ease, filter .18s ease;
+  filter:
+    drop-shadow(0 0 2px rgba(255,255,255,.18))
+    drop-shadow(0 0 6px rgba(133,162,113,.16));
+}
+
+.card.google img{
+  width:184px;
+  height:136px;
+}
+
+.card:hover,
+.card:focus{
+  transform:scale(1.04);
+}
+
+.card:hover img,
+.card:focus img{
+  filter:
+    drop-shadow(0 0 4px rgba(255,255,255,.28))
+    drop-shadow(0 0 10px rgba(133,162,113,.70))
+    drop-shadow(0 0 22px rgba(133,162,113,.60))
+    drop-shadow(0 0 34px rgba(133,162,113,.38));
+}
+
+/* ===== SEPARATEURS ===== */
+
+.separator{
+  width:450px;
+  height:2px;
+  background:var(--green);
+  opacity:.5;
+}
+
+/* FIX LIGNE GOOGLE */
+.row:last-child{
+  margin-bottom:20px;
+}
+
+.row:last-child .content{
+  transform:translateY(-10px);
+} 
+
+/* ===== FIN CSS ===== */
+
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+  <!-- ===== TITRE ===== -->
+  <div class="title">
+    <img src="titre.svg" alt="Sha's Hub">
+  </div>
+
+  <!-- ===== DEBUT ROWS ===== -->
+  <div class="rows">
+
+    <!-- ===== LIGNE 1 ===== -->
+    <div class="row">
+
+      <div class="robot">
+        <img src="robot_lunettes.svg" alt="">
+      </div>
+
+      <div class="content">
+
+        <div class="logos">
+          <a class="card" href="https://www.netflix.com/browse">
+            <img src="Netflix.svg" alt="Netflix">
+          </a>
+
+          <a class="card" href="https://youtube.com/tv">
+            <img src="Youtube.svg" alt="YouTube">
+          </a>
+
+          <a class="card" href="https://www.primevideo.com">
+            <img src="Prime_Video.svg" alt="Prime Video">
+          </a>
+        </div>
+
+        <div class="separator"></div>
+
+      </div>
+    </div>
+
+    <!-- ===== LIGNE 2 ===== -->
+    <div class="row">
+
+      <div class="robot">
+        <img src="robot_casque.svg" alt="">
+      </div>
+
+      <div class="content">
+
+        <div class="logos">
+          <a class="card" href="https://music.apple.com">
+            <img src="Apple_Music.svg" alt="Apple Music">
+          </a>
+
+          <a class="card" href="https://open.spotify.com">
+            <img src="Spotify.svg" alt="Spotify">
+          </a>
+        </div>
+
+        <div class="separator"></div>
+
+      </div>
+    </div>
+
+    <!-- ===== LIGNE 3 ===== -->
+    <div class="row">
+
+      <div class="robot">
+        <img src="robot_ordi.svg" alt="">
+      </div>
+
+      <div class="content">
+
+        <div class="logos">
+          <a class="card" href="https://www.google.com">
+            <img src="Google.svg" alt="Google">
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- ===== FIN ROWS ===== -->
+
+</div>
+
+</body>
+</html>le mettre sans rien casser
