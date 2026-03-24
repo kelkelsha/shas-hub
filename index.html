@@ -223,15 +223,15 @@ body::before{
       <div class="content">
 
         <div class="logos">
-          <a class="card" href="https://www.netflix.com/browse">
+          <a class="card" href="https://www.netflix.com/browse"  tabindex="0">
             <img src="Netflix.svg" alt="Netflix">
           </a>
 
-          <a class="card" href="https://youtube.com/tv">
+          <a class="card" href="https://youtube.com/tv" tabindex="0">
             <img src="Youtube.svg" alt="YouTube">
           </a>
 
-          <a class="card" href="https://www.primevideo.com">
+          <a class="card" href="https://www.primevideo.com" tabindex="0">
             <img src="Prime_Video.svg" alt="Prime Video">
           </a>
         </div>
@@ -251,11 +251,11 @@ body::before{
       <div class="content">
 
         <div class="logos">
-          <a class="card" href="https://music.apple.com">
+          <a class="card" href="https://music.apple.com/fr/home" tabindex="0">
             <img src="Apple_Music.svg" alt="Apple Music">
           </a>
 
-          <a class="card" href="https://open.spotify.com">
+          <a class="card" href="https://open.spotify.com" tabindex="0">
             <img src="Spotify.svg" alt="Spotify">
           </a>
         </div>
@@ -275,7 +275,7 @@ body::before{
       <div class="content">
 
         <div class="logos">
-          <a class="card" href="https://www.google.com">
+          <a class="card" href="https://www.google.com" tabindex="0">
             <img src="Google.svg" alt="Google">
           </a>
         </div>
@@ -288,5 +288,48 @@ body::before{
 
 </div>
 
+
+<script>
+
+const cards = Array.from(document.querySelectorAll('.card'));
+
+window.onload = () => {
+  if(cards.length > 0){
+    cards[0].focus();
+  }
+};
+
+document.addEventListener('keydown', (e) => {
+
+  const current = document.activeElement;
+  const index = cards.indexOf(current);
+
+  if(index === -1) return;
+
+  let nextIndex = index;
+
+  if(e.key === "ArrowRight"){
+    nextIndex = index + 1;
+  }
+
+  if(e.key === "ArrowLeft"){
+    nextIndex = index - 1;
+  }
+
+  if(e.key === "ArrowDown"){
+    nextIndex = index + 3;
+  }
+
+  if(e.key === "ArrowUp"){
+    nextIndex = index - 3;
+  }
+
+  if(nextIndex >= 0 && nextIndex < cards.length){
+    cards[nextIndex].focus();
+  }
+
+});
+
+</script>
 </body>
 </html>le mettre sans rien casser
