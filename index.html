@@ -3,7 +3,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=1280, initial-scale=1.0">
 <title>Sha's Hub</title>
 
 <style>
@@ -75,18 +75,19 @@ body::before{
 .title{
   display:flex;
   justify-content:center;
-  margin-top:2vh;
+  margin-top:20px;
 }
 
 .title img{
-  width:clamp(200px, 30vw, 480px);
+  width:420px;
+  /* FIX TV : drop-shadow multiple = lourd, simplifié */
   filter:drop-shadow(0 0 18px rgba(133,162,113,.55));
 }
 
 /* ===== STRUCTURE ===== */
 
 .rows{
-  height:calc(100% - 14vh);
+  height:calc(100% - 180px);
   display:flex;
   flex-direction:column;
   justify-content:space-evenly;
@@ -100,7 +101,7 @@ body::before{
   display:flex;
   justify-content:center;
   align-items:center;
-  min-height:15vh;
+  min-height:180px;
 }
 
 /* ===== ROBOTS ===== */
@@ -113,7 +114,7 @@ body::before{
 }
 
 .robot img{
-  width:clamp(80px, 11vw, 160px);
+  width:160px;
   display:block;
 }
 
@@ -132,27 +133,29 @@ body::before{
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:clamp(16px, 2.5vw, 45px);
+  gap:35px;
 }
 
 .card{
-  width:clamp(120px, 15vw, 240px);
-  height:clamp(85px, 11vh, 170px);
+  width:240px;
+  height:170px;
   display:flex;
   align-items:center;
   justify-content:center;
+  /* FIX TV : transition allégée */
   transition:transform .15s ease;
+  /* FIX TV : outline par défaut retiré, on gère le focus nous-mêmes */
   outline:none;
   border-radius:8px;
 }
 
 .logos .card{
-  min-width:clamp(120px, 15vw, 240px);
+  min-width:240px;
 }
 
 .card img{
-  width:clamp(80px, 11vw, 178px);
-  height:auto;
+  width:178px;
+  height:128px;
   object-fit:contain;
   display:block;
   transition:filter .15s ease;
@@ -162,7 +165,8 @@ body::before{
 }
 
 .card.google img{
-  width:clamp(84px, 11.5vw, 184px);
+  width:184px;
+  height:136px;
 }
 
 /* FIX TV : hover souvent ignoré sur TV, on mise tout sur :focus */
@@ -194,7 +198,7 @@ body::before{
 /* ===== SEPARATEURS ===== */
 
 .separator{
-  width:clamp(200px, 35vw, 500px);
+  width:450px;
   height:2px;
   background:var(--green);
   opacity:.5;
@@ -202,11 +206,11 @@ body::before{
 
 /* FIX LIGNE GOOGLE */
 .row:last-child{
-  margin-bottom:0;
+  margin-bottom:20px;
 }
 
 .row:last-child .content{
-  transform:none;
+  transform:translateY(-10px);
 }
 
 /* ===== FIN CSS ===== */
