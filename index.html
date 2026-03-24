@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=1280, initial-scale=1.0">
 <title>Sha's Hub</title>
 
 <style>
@@ -28,6 +29,7 @@
 html, body{
   width:100%;
   height:100%;
+  /* FIX TV : pas de overflow:hidden sur html pour éviter les bugs navigateur TV */
   overflow:hidden;
   font-family:Arial, Helvetica, sans-serif;
   color:var(--white);
@@ -55,7 +57,8 @@ body::before{
     radial-gradient(circle at 48% 18%, rgba(255,255,255,.06), transparent 13%),
     radial-gradient(circle at 72% 36%, rgba(255,255,255,.05), transparent 15%),
     radial-gradient(circle at 88% 76%, rgba(255,255,255,.06), transparent 14%);
-  filter:blur(52px);
+  /* FIX TV : filter:blur coûteux sur vieux GPU → réduit */
+  filter:blur(30px);
   opacity:.9;
 }
 
@@ -77,9 +80,8 @@ body::before{
 
 .title img{
   width:420px;
-  filter:
-    drop-shadow(0 0 10px rgba(133,162,113,.5))
-    drop-shadow(0 0 25px rgba(133,162,113,.3));
+  /* FIX TV : drop-shadow multiple = lourd, simplifié */
+  filter:drop-shadow(0 0 18px rgba(133,162,113,.55));
 }
 
 /* ===== STRUCTURE ===== */
@@ -131,17 +133,20 @@ body::before{
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:35px; /* avant 60 → plus serré */
+  gap:35px;
 }
 
-/* tailles logos : base propre, on ajustera après si besoin */
 .card{
   width:240px;
   height:170px;
   display:flex;
   align-items:center;
   justify-content:center;
-  transition:transform .18s ease;
+  /* FIX TV : transition allégée */
+  transition:transform .15s ease;
+  /* FIX TV : outline par défaut retiré, on gère le focus nous-mêmes */
+  outline:none;
+  border-radius:8px;
 }
 
 .logos .card{
@@ -153,7 +158,7 @@ body::before{
   height:128px;
   object-fit:contain;
   display:block;
-  transition:transform .18s ease, filter .18s ease;
+  transition:filter .15s ease;
   filter:
     drop-shadow(0 0 2px rgba(255,255,255,.18))
     drop-shadow(0 0 6px rgba(133,162,113,.16));
@@ -164,13 +169,25 @@ body::before{
   height:136px;
 }
 
+/* FIX TV : hover souvent ignoré sur TV, on mise tout sur :focus */
 .card:hover,
-.card:focus{
-  transform:scale(1.04);
+.card:focus,
+.card.focused{
+  transform:scale(1.06);
+}
+
+/* FIX TV : visuel de focus clair et visible à distance */
+.card:focus,
+.card.focused{
+  box-shadow:
+    0 0 0 3px var(--green),
+    0 0 18px rgba(133,162,113,.6),
+    0 0 40px rgba(133,162,113,.3);
 }
 
 .card:hover img,
-.card:focus img{
+.card:focus img,
+.card.focused img{
   filter:
     drop-shadow(0 0 4px rgba(255,255,255,.28))
     drop-shadow(0 0 10px rgba(133,162,113,.70))
@@ -194,11 +211,12 @@ body::before{
 
 .row:last-child .content{
   transform:translateY(-10px);
-} 
+}
 
 /* ===== FIN CSS ===== */
 
 </style>
+
 </head>
 
 <body>
@@ -206,130 +224,173 @@ body::before{
 <div class="page">
 
   <!-- ===== TITRE ===== -->
+
   <div class="title">
     <img src="titre.svg" alt="Sha's Hub">
   </div>
 
   <!-- ===== DEBUT ROWS ===== -->
+
   <div class="rows">
 
-    <!-- ===== LIGNE 1 ===== -->
-    <div class="row">
 
-      <div class="robot">
-        <img src="robot_lunettes.svg" alt="">
-      </div>
-
-      <div class="content">
-
-        <div class="logos">
-          <a class="card" href="https://www.netflix.com/browse"  tabindex="0">
-            <img src="Netflix.svg" alt="Netflix">
-          </a>
-
-          <a class="card" href="https://youtube.com/tv" tabindex="0">
-            <img src="Youtube.svg" alt="YouTube">
-          </a>
-
-          <a class="card" href="https://www.primevideo.com" tabindex="0">
-            <img src="Prime_Video.svg" alt="Prime Video">
-          </a>
-        </div>
-
-        <div class="separator"></div>
-
-      </div>
+<!-- ===== LIGNE 1 (index 0,1,2) ===== -->
+<div class="row" data-row="0">
+  <div class="robot">
+    <img src="robot_lunettes.svg" alt="">
+  </div>
+  <div class="content">
+    <div class="logos">
+      <a class="card" href="https://www.netflix.com/browse" tabindex="-1" data-row="0" data-col="0">
+        <img src="Netflix.svg" alt="Netflix">
+      </a>
+      <a class="card" href="https://youtube.com/tv" tabindex="-1" data-row="0" data-col="1">
+        <img src="Youtube.svg" alt="YouTube">
+      </a>
+      <a class="card" href="https://www.primevideo.com" tabindex="-1" data-row="0" data-col="2">
+        <img src="Prime_Video.svg" alt="Prime Video">
+      </a>
     </div>
+    <div class="separator"></div>
+  </div>
+</div>
 
-    <!-- ===== LIGNE 2 ===== -->
-    <div class="row">
-
-      <div class="robot">
-        <img src="robot_casque.svg" alt="">
-      </div>
-
-      <div class="content">
-
-        <div class="logos">
-          <a class="card" href="https://music.apple.com/fr/home" tabindex="0">
-            <img src="Apple_Music.svg" alt="Apple Music">
-          </a>
-
-          <a class="card" href="https://open.spotify.com" tabindex="0">
-            <img src="Spotify.svg" alt="Spotify">
-          </a>
-        </div>
-
-        <div class="separator"></div>
-
-      </div>
+<!-- ===== LIGNE 2 (index 1,2) ===== -->
+<div class="row" data-row="1">
+  <div class="robot">
+    <img src="robot_casque.svg" alt="">
+  </div>
+  <div class="content">
+    <div class="logos">
+      <a class="card" href="https://music.apple.com/fr/home" tabindex="-1" data-row="1" data-col="0">
+        <img src="Apple_Music.svg" alt="Apple Music">
+      </a>
+      <a class="card" href="https://open.spotify.com" tabindex="-1" data-row="1" data-col="1">
+        <img src="Spotify.svg" alt="Spotify">
+      </a>
     </div>
+    <div class="separator"></div>
+  </div>
+</div>
 
-    <!-- ===== LIGNE 3 ===== -->
-    <div class="row">
-
-      <div class="robot">
-        <img src="robot_ordi.svg" alt="">
-      </div>
-
-      <div class="content">
-
-        <div class="logos">
-          <a class="card" href="https://www.google.com" tabindex="0">
-            <img src="Google.svg" alt="Google">
-          </a>
-        </div>
-
-      </div>
+<!-- ===== LIGNE 3 (index 0) ===== -->
+<div class="row" data-row="2">
+  <div class="robot">
+    <img src="robot_ordi.svg" alt="">
+  </div>
+  <div class="content">
+    <div class="logos">
+      <a class="card google" href="https://www.google.com" tabindex="-1" data-row="2" data-col="0">
+        <img src="Google.svg" alt="Google">
+      </a>
     </div>
+  </div>
+</div>
+
 
   </div>
   <!-- ===== FIN ROWS ===== -->
 
 </div>
 
-
 <script>
+/*
+  FIX NAVIGATION TV
+  On utilise une grille 2D (row, col) au lieu d'un index linéaire.
+  Comme chaque ligne a un nombre différent de cartes, la navigation
+  linéaire (index + 3) causait des sauts incohérents.
+  Ici, ↓ reste dans la même colonne (ou la plus proche) en changeant de ligne.
+*/
 
-const cards = Array.from(document.querySelectorAll('.card'));
+// Grille : tableau de tableaux de cards, organisés par ligne
+const grid = [];
+const rows = document.querySelectorAll('.row');
 
-window.onload = () => {
-  if(cards.length > 0){
-    cards[0].focus();
-  }
-};
-
-document.addEventListener('keydown', (e) => {
-
-  const current = document.activeElement;
-  const index = cards.indexOf(current);
-
-  if(index === -1) return;
-
-  let nextIndex = index;
-
-  if(e.key === "ArrowRight"){
-    nextIndex = index + 1;
-  }
-
-  if(e.key === "ArrowLeft"){
-    nextIndex = index - 1;
-  }
-
-  if(e.key === "ArrowDown"){
-    nextIndex = index + 3;
-  }
-
-  if(e.key === "ArrowUp"){
-    nextIndex = index - 3;
-  }
-
-  if(nextIndex >= 0 && nextIndex < cards.length){
-    cards[nextIndex].focus();
-  }
-
+rows.forEach(function(row) {
+  const rowCards = Array.from(row.querySelectorAll('.card'));
+  if (rowCards.length > 0) grid.push(rowCards);
 });
 
+let currentRow = 0;
+let currentCol = 0;
+
+function getCard(r, c) {
+  if (r < 0 || r >= grid.length) return null;
+  const row = grid[r];
+  // Si la colonne demandée dépasse la longueur de la ligne, on prend la dernière
+  const col = Math.min(c, row.length - 1);
+  return row[col];
+}
+
+function setFocus(r, c) {
+  // Retire le focus actuel
+  const prev = getCard(currentRow, currentCol);
+  if (prev) prev.classList.remove('focused');
+
+  currentRow = r;
+  // Clamp col à la taille de la ligne cible
+  currentCol = Math.min(c, grid[r].length - 1);
+
+  const next = getCard(currentRow, currentCol);
+  if (next) next.classList.add('focused');
+}
+
+// Focus initial
+setFocus(0, 0);
+
+document.addEventListener('keydown', function(e) {
+  switch(e.key) {
+
+    case 'ArrowRight':
+      e.preventDefault();
+      if (currentCol < grid[currentRow].length - 1) {
+        setFocus(currentRow, currentCol + 1);
+      }
+      break;
+
+    case 'ArrowLeft':
+      e.preventDefault();
+      if (currentCol > 0) {
+        setFocus(currentRow, currentCol - 1);
+      }
+      break;
+
+    case 'ArrowDown':
+      e.preventDefault();
+      if (currentRow < grid.length - 1) {
+        // On garde la même colonne (ou la plus proche si la ligne suivante est plus courte)
+        setFocus(currentRow + 1, currentCol);
+      }
+      break;
+
+    case 'ArrowUp':
+      e.preventDefault();
+      if (currentRow > 0) {
+        setFocus(currentRow - 1, currentCol);
+      }
+      break;
+
+    case 'Enter':
+      e.preventDefault();
+      const card = getCard(currentRow, currentCol);
+      if (card) window.location.href = card.href;
+      break;
+  }
+});
+
+// Support souris (fallback)
+grid.forEach(function(row, r) {
+  row.forEach(function(card, c) {
+    card.addEventListener('mouseenter', function() {
+      setFocus(r, c);
+    });
+    card.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = card.href;
+    });
+  });
+});
 </script>
+
 </body>
-</html>le mettre sans rien casser
+</html>
