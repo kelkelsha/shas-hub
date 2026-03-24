@@ -3,7 +3,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=1280, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sha's Hub</title>
 
 <style>
@@ -75,19 +75,18 @@ body::before{
 .title{
   display:flex;
   justify-content:center;
-  margin-top:20px;
+  margin-top:2vh;
 }
 
 .title img{
-  width:420px;
-  /* FIX TV : drop-shadow multiple = lourd, simplifié */
+  width:clamp(200px, 30vw, 480px);
   filter:drop-shadow(0 0 18px rgba(133,162,113,.55));
 }
 
 /* ===== STRUCTURE ===== */
 
 .rows{
-  height:calc(100% - 180px);
+  height:calc(100% - 210px);
   display:flex;
   flex-direction:column;
   justify-content:space-evenly;
@@ -101,7 +100,15 @@ body::before{
   display:flex;
   justify-content:center;
   align-items:center;
-  min-height:180px;
+  min-height:150px;
+}
+
+.row:last-child{
+  margin-bottom:0;
+}
+
+.row:last-child .content{
+  transform:translateY(-35px);
 }
 
 /* ===== ROBOTS ===== */
@@ -114,7 +121,7 @@ body::before{
 }
 
 .robot img{
-  width:160px;
+  width:clamp(80px, 11vw, 160px);
   display:block;
 }
 
@@ -133,29 +140,27 @@ body::before{
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:35px;
+  gap:clamp(16px, 2.5vw, 45px);
 }
 
 .card{
-  width:240px;
-  height:170px;
+  width:clamp(120px, 15vw, 240px);
+  height:clamp(85px, 11vh, 170px);
   display:flex;
   align-items:center;
   justify-content:center;
-  /* FIX TV : transition allégée */
   transition:transform .15s ease;
-  /* FIX TV : outline par défaut retiré, on gère le focus nous-mêmes */
   outline:none;
   border-radius:8px;
 }
 
 .logos .card{
-  min-width:240px;
+  min-width:clamp(120px, 15vw, 240px);
 }
 
 .card img{
-  width:178px;
-  height:128px;
+  width:clamp(80px, 11vw, 178px);
+  height:auto;
   object-fit:contain;
   display:block;
   transition:filter .15s ease;
@@ -165,8 +170,7 @@ body::before{
 }
 
 .card.google img{
-  width:184px;
-  height:136px;
+  width:clamp(84px, 11.5vw, 184px);
 }
 
 /* FIX TV : hover souvent ignoré sur TV, on mise tout sur :focus */
@@ -198,7 +202,7 @@ body::before{
 /* ===== SEPARATEURS ===== */
 
 .separator{
-  width:450px;
+  width:clamp(200px, 35vw, 500px);
   height:2px;
   background:var(--green);
   opacity:.5;
@@ -206,11 +210,11 @@ body::before{
 
 /* FIX LIGNE GOOGLE */
 .row:last-child{
-  margin-bottom:20px;
+  margin-bottom:0;
 }
 
 .row:last-child .content{
-  transform:translateY(-10px);
+  transform:none;
 }
 
 /* ===== FIN CSS ===== */
